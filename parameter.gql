@@ -1,0 +1,178 @@
+fragment entityImage on UploadFileEntityResponse {
+  data {
+    ...image
+  }
+}
+
+fragment image on UploadFileEntity {
+  identificador: id
+  attributes {
+    name
+    altText: alternativeText
+    url
+  }
+}
+
+fragment menuLink on ComponentMenuMenuLink {
+  id
+  link
+  text
+  newTab
+}
+
+fragment settingEntityResponse on SettingEntityResponse {
+  data {
+    ...settingEntity
+  }
+}
+
+fragment settingEntity on SettingEntity {
+  id
+  attributes {
+    ...setting
+  }
+}
+fragment setting on Setting {
+  BlogName
+  blogDescription
+  logo {
+    ...entityImage
+  }
+  menuLink {
+    ...menuLink
+  }
+  text
+}
+fragment tagEntityCollection on TagRelationResponseCollection {
+  data {
+    ...tagEntity
+  }
+}
+
+fragment tagEntity on TagEntity {
+  id
+  attributes {
+    ...tag
+  }
+}
+
+fragment tag on Tag {
+  displayName
+  slug
+}
+
+fragment authorEntityResponse on AuthorEntityResponse {
+  data {
+    ...authorEntity
+  }
+}
+
+fragment authorEntity on AuthorEntity {
+  id
+  attributes {
+    displayName
+    slug
+  }
+}
+
+fragment CategoryEntityResponse on CategoryEntityResponse {
+  data {
+    ...categoryEntity
+  }
+}
+
+fragment categoryEntity on CategoryEntity {
+  id
+  attributes {
+    displayName
+    slug
+  }
+}
+
+fragment postEntityResponseCollection on PostEntityResponseCollection {
+  data {
+    ...postEntity
+  }
+}
+fragment postEntityResponse on PostEntityResponse {
+  data {
+    ...postEntity
+  }
+}
+
+fragment postEntity on PostEntity {
+  id
+  attributes {
+    ...post
+  }
+}
+fragment post on Post {
+  title
+  slug
+  cover {
+    ...entityImage
+  }
+  excerpt
+  allowComments
+  tags {
+    ...tagEntityCollection
+  }
+  author {
+    ...authorEntityResponse
+  }
+  category {
+    ...CategoryEntityResponse
+  }
+  allowComments
+}
+query GET_SETINGS {
+  setting {
+    ...settingEntityResponse
+  }
+  #Aqui é para ter todos os posts
+  posts {
+    ...postEntityResponseCollection
+  }
+}
+
+query GET_POST($id: ID!) {
+  setting {
+    ...settingEntityResponse
+  }
+  post(id: $id) {
+    ...postEntityResponse
+  }
+}
+query GET_POST_BY_SLUG($postSlug: String!) {
+  setting {
+    ...settingEntityResponse
+  }
+  posts(filters: { slug: { eq: $postSlug } }) {
+    ...postEntityResponseCollection
+  }
+}
+
+query GET_POST_BY_AUTHOR($authorSlug: String!) {
+  setting {
+    ...settingEntityResponse
+  }
+  posts(filters: { author: { slug: { eq: $authorSlug } } }) {
+    ...postEntityResponseCollection
+  }
+}
+query GET_POST_BY_CATEGORY($categorySlug: String!) {
+  setting {
+    ...settingEntityResponse
+  }
+  posts(filters: { category: { slug: { eq: $categorySlug } } }) {
+    ...postEntityResponseCollection
+  }
+}
+query GET_POST_BY_TAG($tagSlug: String!) {
+  setting {
+    ...settingEntityResponse
+  }
+  posts(filters: { tags: { slug: { eq: $tagSlug } } }) {
+    ...postEntityResponseCollection
+  }
+}
