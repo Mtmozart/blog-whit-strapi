@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_section_text_grids",
+  "info": {
+    "displayName": "text_grid",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 150,
+      "minLength": 2
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "unique": false,
+      "maxLength": 500,
+      "minLength": 50
+    }
+  }
+}

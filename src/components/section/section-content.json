@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_section_section_contents",
+  "info": {
+    "displayName": "section_content",
+    "icon": "cube"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "regex": "^[a-zA-Z]+([0-9-]*[a-zA-Z]+)*$",
+      "maxLength": 150,
+      "minLength": 2
+    },
+    "content": {
+      "type": "customField",
+      "options": {
+        "preset": "toolbarBaloon"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "section.section-metadata",
+      "required": true
+    }
+  }
+}
